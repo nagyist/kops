@@ -41,7 +41,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.16
     manifest: certmanager.io/k8s-1.16.yaml
-    manifestHash: dd98c17b9b3aabaf2e061353104d4ec52bec8f023cfecddb3911efbcad3ef566
+    manifestHash: e9a1f65a8e57904e77e1b5e9f429ca56e154eb73ed2a536e1fb39746573dba21
     name: certmanager.io
     prune:
       kinds:
@@ -155,7 +155,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.16
     manifest: networking.cilium.io/k8s-1.16-v1.15.yaml
-    manifestHash: 3fdb869ea26ce50ae6db32e1b997749f18cbb30ebf31468f2c5da2c692681a54
+    manifestHash: 4bcad9db74c02ba2eb263f0db9b5de89909c21a0da60ac61a67311c8880bf973
     name: networking.cilium.io
     needsPKI: true
     needsRollingUpdate: all
@@ -164,7 +164,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.18
     manifest: aws-cloud-controller.addons.k8s.io/k8s-1.18.yaml
-    manifestHash: e15c2d2b914a41e34aee7d0fb3fda9425508b06e449f097fa72906d7867185ed
+    manifestHash: 5d127e39d38aef18908ba4d33d1b5d72fd7436a504027e8ec68cd566af82af78
     name: aws-cloud-controller.addons.k8s.io
     selector:
       k8s-addon: aws-cloud-controller.addons.k8s.io

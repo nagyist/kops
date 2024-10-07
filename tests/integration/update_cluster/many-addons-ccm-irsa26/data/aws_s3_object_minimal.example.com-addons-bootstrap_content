@@ -6,7 +6,7 @@ spec:
   addons:
   - id: k8s-1.16
     manifest: kops-controller.addons.k8s.io/k8s-1.16.yaml
-    manifestHash: 0fe87d491cfdff3b8e852ab534287c05d626f770ebc89539d1040ecc0ea8a9e3
+    manifestHash: 5cc76e4f163436155d991177782cfeb66a0e77f0e8cbf573552e99beaa80d33d
     name: kops-controller.addons.k8s.io
     needsRollingUpdate: control-plane
     selector:
@@ -64,7 +64,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.16
     manifest: certmanager.io/k8s-1.16.yaml
-    manifestHash: dd98c17b9b3aabaf2e061353104d4ec52bec8f023cfecddb3911efbcad3ef566
+    manifestHash: e9a1f65a8e57904e77e1b5e9f429ca56e154eb73ed2a536e1fb39746573dba21
     name: certmanager.io
     prune:
       kinds:
@@ -186,7 +186,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.16
     manifest: networking.amazon-vpc-routed-eni/k8s-1.16.yaml
-    manifestHash: 516820e30ab3bc0817c018c36ffd1841d5e6c53b553a0ddd8ae98d7d3779c0fc
+    manifestHash: a60a3c1fc05a99c395f58df484510bc606cddb3b7131f71da76d2ca85c882384
     name: networking.amazon-vpc-routed-eni
     needsRollingUpdate: all
     selector:
@@ -194,7 +194,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.18
     manifest: aws-cloud-controller.addons.k8s.io/k8s-1.18.yaml
-    manifestHash: 0816f42dab835da479abf7146f4f433d515da1b388159e3fcd09df9b58593248
+    manifestHash: 61d8aed7126cff29860f5b09a092010af18071fa057edaa5cdc3ab3a38cc6ef2
     name: aws-cloud-controller.addons.k8s.io
     selector:
       k8s-addon: aws-cloud-controller.addons.k8s.io

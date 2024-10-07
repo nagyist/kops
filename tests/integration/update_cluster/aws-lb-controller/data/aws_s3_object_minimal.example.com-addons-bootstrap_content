@@ -41,7 +41,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.16
     manifest: certmanager.io/k8s-1.16.yaml
-    manifestHash: dd98c17b9b3aabaf2e061353104d4ec52bec8f023cfecddb3911efbcad3ef566
+    manifestHash: e9a1f65a8e57904e77e1b5e9f429ca56e154eb73ed2a536e1fb39746573dba21
     name: certmanager.io
     prune:
       kinds:
@@ -163,7 +163,7 @@ spec:
     version: 9.99.0
   - id: k8s-1.18
     manifest: aws-cloud-controller.addons.k8s.io/k8s-1.18.yaml
-    manifestHash: bde9fd03eb9b0c17659bba7e5c67e82bb9cbed0bca05a643983ba715ed03b444
+    manifestHash: 156782e82a0be1accfe863bf7f7552f7deb1982820356c5f6cbc8947cc34d530
     name: aws-cloud-controller.addons.k8s.io
     selector:
       k8s-addon: aws-cloud-controller.addons.k8s.io

@@ -131,7 +131,7 @@ func (d *deployer) initialize() error {
 	klog.V(1).Infof("Using SSH user: [%s]", d.SSHUser)
 
 	if d.TerraformVersion != "" {
-		t, err := target.NewTerraform(d.TerraformVersion)
+		t, err := target.NewTerraform(d.TerraformVersion, d.ArtifactsDir)
 		if err != nil {
 			return err
 		}
@@ -329,6 +329,18 @@ func (d *deployer) stateStore() string {
 		}
 	}
 	return ss
+}
+
+// discoveryStore returns the VFS path to use for public OIDC documents
+func (d *deployer) discoveryStore() string {
+	discovery := os.Getenv("KOPS_DISCOVERY_STORE")
+	if discovery == "" {
+		switch d.CloudProvider {
+		case "aws":
+			discovery = "s3://k8s-kops-ci-prow"
+		}
+	}
+	return discovery
 }
 
 func (d *deployer) stagingStore() string {

@@ -581,7 +581,7 @@ func (c *ApplyClusterCmd) Run(ctx context.Context) (*ApplyResults, error) {
 				&awsmodel.SSHKeyModelBuilder{AWSModelContext: awsModelContext, Lifecycle: securityLifecycle},
 				&awsmodel.NetworkModelBuilder{AWSModelContext: awsModelContext, Lifecycle: networkLifecycle},
 				&awsmodel.IAMModelBuilder{AWSModelContext: awsModelContext, Lifecycle: securityLifecycle, Cluster: cluster},
-				&awsmodel.OIDCProviderBuilder{AWSModelContext: awsModelContext, Lifecycle: securityLifecycle, KeyStore: keyStore},
+				&awsmodel.OIDCProviderBuilder{AWSModelContext: awsModelContext, Lifecycle: securityLifecycle},
 			)
 
 			awsModelBuilder := &awsmodel.AutoscalingGroupModelBuilder{
@@ -927,15 +927,21 @@ func (c *ApplyClusterCmd) validateKubernetesVersion() error {
 		tooNewVersion.Pre = nil
 		tooNewVersion.Build = nil
 		if util.IsKubernetesGTE(tooNewVersion.String(), *parsed) {
+			bypassCheck := os.Getenv("KOPS_RUN_TOO_NEW_VERSION") != ""
+
 			fmt.Printf("\n")
 			fmt.Printf("%s\n", starline)
 			fmt.Printf("\n")
 			fmt.Printf("This version of kubernetes is not yet supported; upgrading kops is required\n")
-			fmt.Printf("(you can bypass this check by exporting KOPS_RUN_TOO_NEW_VERSION)\n")
+			if bypassCheck {
+				fmt.Printf("(this check has been bypassed by exporting KOPS_RUN_TOO_NEW_VERSION)\n")
+			} else {
+				fmt.Printf("(you can bypass this check by exporting KOPS_RUN_TOO_NEW_VERSION)\n")
+			}
 			fmt.Printf("\n")
 			fmt.Printf("%s\n", starline)
 			fmt.Printf("\n")
-			if os.Getenv("KOPS_RUN_TOO_NEW_VERSION") == "" {
+			if !bypassCheck {
 				return fmt.Errorf("kops upgrade is required")
 			}
 		}

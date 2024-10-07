@@ -174,7 +174,7 @@ func (tf *TemplateFunctions) AddTo(dest template.FuncMap, secretStore fi.SecretS
 	dest["DNSControllerEnvs"] = tf.DNSControllerEnvs
 	dest["ProxyEnv"] = tf.ProxyEnv
 
-	dest["KopsSystemEnv"] = tf.KopsSystemEnv
+	dest["KopsControllerEnv"] = tf.KopsControllerEnv
 
 	dest["DO_TOKEN"] = func() string {
 		return os.Getenv("DIGITALOCEAN_ACCESS_TOKEN")
@@ -255,6 +255,8 @@ func (tf *TemplateFunctions) AddTo(dest template.FuncMap, secretStore fi.SecretS
 				"DISABLE_METRICS":                       "false",
 				"ENABLE_POD_ENI":                        "false",
 				"ENABLE_PREFIX_DELEGATION":              "false",
+				"ENABLE_SUBNET_DISCOVERY":               "true",
+				"NETWORK_POLICY_ENFORCING_MODE":         "standard",
 				"WARM_ENI_TARGET":                       "1",
 				"WARM_PREFIX_TARGET":                    "1",
 				"DISABLE_NETWORK_RESOURCE_PROVISIONING": "false",
@@ -879,9 +881,15 @@ func (tf *TemplateFunctions) ProxyEnv() map[string]string {
 	return envs
 }
 
-// KopsSystemEnv builds the env vars for a system component
-func (tf *TemplateFunctions) KopsSystemEnv() []corev1.EnvVar {
+// KopsControllerEnv builds the env vars for the kops-controller component
+func (tf *TemplateFunctions) KopsControllerEnv() []corev1.EnvVar {
 	envMap := env.BuildSystemComponentEnvVars(&tf.Cluster.Spec)
+
+	// kops-controller needs the KOPS_RUN_TOO_NEW_VERSION env var to run newer versions of kubernetes
+	// (if building bootstrap configuration on the fly)
+	if v := os.Getenv("KOPS_RUN_TOO_NEW_VERSION"); v != "" {
+		envMap["KOPS_RUN_TOO_NEW_VERSION"] = v
+	}
 
 	return envMap.ToEnvVars()
 }
